@@ -57,7 +57,7 @@ const BookingForm = ({ onNewBooking }) => {
         onNewBooking(result.booking);
         setFormData({ date: "", time: "", guests: "", name: "", contact: "" });
         setErrors({});
-        window.location.reload()
+        window.location.reload();
       } else {
         toast.error(result.error || "An error occurred");
       }
@@ -68,7 +68,7 @@ const BookingForm = ({ onNewBooking }) => {
 
   return (
     <div
-      className="max-w-lg mx-auto mt-8 p-6 bg-[#070f25] rounded-lg border border-gray-500"
+      className="max-w-lg mx-auto mt-2 p-6 bg-[#070f25] rounded-lg border border-gray-500"
       style={{
         boxShadow: " 0 10px 15px -3px #a5b4fc, 0 4px 6px -4px  rgb(0 69 76)",
       }}
