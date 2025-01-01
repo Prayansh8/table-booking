@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BookingForm from "./BookingForm";
+import { toast } from "react-hot-toast";
 
 const BookingPage = () => {
   const [bookings, setBookings] = useState([]);
@@ -27,48 +28,111 @@ const BookingPage = () => {
     setBookings([...bookings, newBooking]);
   };
 
-  return (
-    <div className="max-w-lg mx-auto mt-10">
-      {/* <h1 className="text-3xl font-bold mb-2">Table Booking</h1> */}
-      {bookingSuccess && summaryData && (
-        <div className="bg-green-100 p-4 rounded mb-5">
-          <h2 className="font-bold text-lg">Booking Confirmed!</h2>
-          <p>Date: {summaryData.date}</p>
-          <p>Time: {summaryData.time}</p>
-          <p>Guests: {summaryData.guests}</p>
-          <p>Name: {summaryData.name}</p>
-          <p>Contact: {summaryData.contact}</p>
-        </div>
-      )}
-      <BookingForm onNewBooking={handleNewBooking} />
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
-      {bookings.length > 0 && (
-        <div className="overflow-x-auto mt-5">
-          <table className="min-w-full bg-white border border-gray-200">
-            <thead>
-              <tr>
-                <th className="py-2 px-4 border-b border-gray-300">Name</th>
-                <th className="py-2 px-4 border-b border-gray-300">Date</th>
-                <th className="py-2 px-4 border-b border-gray-300">Time</th>
-                <th className="py-2 px-4 border-b border-gray-300">Guests</th>
-                <th className="py-2 px-4 border-b border-gray-300">Contact</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings.map((booking, index) => (
-                <tr key={index} className="border-b">
-                  <td className="py-2 px-4">{booking.name}</td>
-                  <td className="py-2 px-4">{booking.date}</td>
-                  <td className="py-2 px-4">{booking.time}</td>
-                  <td className="py-2 px-4">{booking.guests}</td>
-                  <td className="py-2 px-4">{booking.contact}</td>
-                </tr>
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return "";
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const confirmDeleteBooking = (id) => {
+    toast((t) => (
+      <span>
+        Are you sure you want to delete this booking?
+        <button
+          onClick={() => {
+            deleteBooking(id);
+            toast.dismiss(t.id);
+          }}
+          className="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-700"
+        >
+          Yes
+        </button>
+        <button
+          onClick={() => toast.dismiss(t.id)}
+          className="ml-2 px-2 py-1 bg-gray-300 text-black rounded hover:bg-gray-400"
+        >
+          No
+        </button>
+      </span>
+    ));
+  };
+
+  const deleteBooking = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+        method: "DELETE",
+      });
+      if (response) {
+        setBookings(bookings.filter((booking) => booking._id !== id));
+        toast.success("Table Slot is Deleted!");
+      }
+    } catch (error) {
+      console.error("Error deleting booking:", error);
+      toast.error("booking not deleted");
+    }
+  };
+
+  return (
+    <>
+      <div className="max-w-lg mx-auto mt-4">
+        <h1 className="text-3xl font-bold">Table Booking</h1>
+        <BookingForm onNewBooking={handleNewBooking} />
+      </div>
+      <div style={{ marginBottom: "8vh" }} className=" mt-12">
+        <div className="flex items-center justify-center">
+          <div className="p-6">
+            <h1 className="text-3xl font-bold mb-2">Table Booking</h1>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
+              {bookings.map((booking) => (
+                <div
+                  key={booking._id}
+                  className="border rounded-lg p-6 bg-transparent text-gray-300"
+                  style={{
+                    boxShadow:
+                      "0 4px 8px -3px #a5b4fc, 0 4px 6px -4px rgb(0 69 76)",
+                  }}
+                >
+                  <h2 className="text-xl font-semibold mb-2">
+                    <strong> Name:</strong>{" "}
+                    {capitalizeFirstLetter(booking.name)}
+                  </h2>
+                  <p>
+                    <strong>Date:</strong> {formatDate(booking.date)}
+                  </p>
+                  <p>
+                    <strong>Time:</strong> {booking.time}
+                  </p>
+                  <p>
+                    <strong>Guests:</strong> {booking.guests}
+                  </p>
+                  <p>
+                    <strong>Contact Number:</strong> {booking.contact}
+                  </p>
+                  <p>
+                    <strong>Booking Date and Time:</strong>{" "}
+                    {new Date(booking.createdAt).toLocaleString()}
+                  </p>
+                  <button
+                    onClick={() => confirmDeleteBooking(booking._id)}
+                    className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

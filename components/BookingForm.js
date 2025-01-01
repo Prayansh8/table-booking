@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const BookingForm = ({ onNewBooking }) => {
   const [formData, setFormData] = useState({
@@ -50,18 +51,17 @@ const BookingForm = ({ onNewBooking }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       const result = await response.json();
-
       if (response.ok) {
+        toast.success("Reserve  the table");
         onNewBooking(result.booking);
         setFormData({ date: "", time: "", guests: "", name: "", contact: "" });
         setErrors({});
       } else {
-        alert(result.error || "An error occurred");
+        toast.error(result.error || "An error occurred");
       }
     } catch (error) {
-      alert("An error occurred while submitting the form");
+      toast.error("An error occurred while submitting the form");
     }
   };
 
