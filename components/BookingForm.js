@@ -43,7 +43,7 @@ const BookingForm = ({ onNewBooking }) => {
       setErrors(validationErrors);
       return;
     }
-    
+
     try {
       const response = await fetch("http://localhost:5000/api/bookings", {
         method: "POST",
@@ -66,7 +66,12 @@ const BookingForm = ({ onNewBooking }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-[#070f25] rounded-lg shadow-lg border border-gray-500">
+    <div
+      className="max-w-lg mx-auto mt-8 p-6 bg-[#070f25] rounded-lg border border-gray-500"
+      style={{
+        boxShadow: " 0 10px 15px -3px #a5b4fc, 0 4px 6px -4px  rgb(0 69 76)",
+      }}
+    >
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <input
@@ -92,15 +97,20 @@ const BookingForm = ({ onNewBooking }) => {
         </div>
         <div>
           <input
-            type="number"
+            type="text"
             name="guests"
             value={formData.guests}
             onChange={handleChange}
             placeholder="Number of guests"
             className="w-full p-3 border border-gray-300 rounded-md text-gray-800"
             required
+            maxLength={2} // Restrict to max 10 characters
+            pattern="[0-9]*" // Ensures that only numeric values are entered
+            inputMode="numeric"
           />
-          {errors.guests && <p className="text-red-500 text-sm">{errors.guests}</p>}
+          {errors.guests && (
+            <p className="text-red-500 text-sm">{errors.guests}</p>
+          )}
         </div>
         <div>
           <input
@@ -116,15 +126,20 @@ const BookingForm = ({ onNewBooking }) => {
         </div>
         <div>
           <input
-            type="text"
+            type="tel"
             name="contact"
             value={formData.contact}
             onChange={handleChange}
             placeholder="Contact details"
             className="w-full p-3 border border-gray-300 rounded-md text-gray-800"
             required
+            maxLength={10} // Restrict to max 10 characters
+            pattern="[0-9]{1,10}" // Ensures that only numeric values are entered
+            inputMode="numeric"
           />
-          {errors.contact && <p className="text-red-500 text-sm">{errors.contact}</p>}
+          {errors.contact && (
+            <p className="text-red-500 text-sm">{errors.contact}</p>
+          )}
         </div>
         <button
           type="submit"

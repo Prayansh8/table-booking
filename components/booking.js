@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import BookingForm from './BookingForm';
+import React, { useState, useEffect } from "react";
+import BookingForm from "./BookingForm";
 
 const BookingPage = () => {
   const [bookings, setBookings] = useState([]);
@@ -9,12 +9,13 @@ const BookingPage = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/bookings');
-        const data = await response.json();
-        setBookings(data);
+        const response = await fetch("http://localhost:5000/api/bookings");
+        if (response) {
+          const data = await response.json();
+          setBookings(data);
+        }
       } catch (error) {
         console.error("Error fetching bookings:", error);
-        // Handle the error state as needed
       }
     };
     fetchBookings();
@@ -28,7 +29,7 @@ const BookingPage = () => {
 
   return (
     <div className="max-w-lg mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-5">Table Booking</h1>
+      {/* <h1 className="text-3xl font-bold mb-2">Table Booking</h1> */}
       {bookingSuccess && summaryData && (
         <div className="bg-green-100 p-4 rounded mb-5">
           <h2 className="font-bold text-lg">Booking Confirmed!</h2>
