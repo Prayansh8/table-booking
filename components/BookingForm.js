@@ -57,6 +57,7 @@ const BookingForm = ({ onNewBooking }) => {
         onNewBooking(result.booking);
         setFormData({ date: "", time: "", guests: "", name: "", contact: "" });
         setErrors({});
+        window.location.reload()
       } else {
         toast.error(result.error || "An error occurred");
       }
