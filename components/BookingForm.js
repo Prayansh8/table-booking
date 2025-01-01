@@ -104,8 +104,8 @@ const BookingForm = ({ onNewBooking }) => {
             placeholder="Number of guests"
             className="w-full p-3 border border-gray-300 rounded-md text-gray-800"
             required
-            maxLength={2} // Restrict to max 10 characters
-            pattern="[0-9]*" // Ensures that only numeric values are entered
+            maxLength={2}
+            pattern="[0-9]*"
             inputMode="numeric"
           />
           {errors.guests && (
@@ -133,8 +133,8 @@ const BookingForm = ({ onNewBooking }) => {
             placeholder="Contact details"
             className="w-full p-3 border border-gray-300 rounded-md text-gray-800"
             required
-            maxLength={10} // Restrict to max 10 characters
-            pattern="[0-9]{1,10}" // Ensures that only numeric values are entered
+            maxLength={10}
+            pattern="[0-9]{1,10}"
             inputMode="numeric"
           />
           {errors.contact && (
