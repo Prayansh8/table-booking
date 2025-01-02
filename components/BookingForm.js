@@ -12,7 +12,6 @@ const BookingForm = ({ onNewBooking }) => {
   });
   
   const [errors, setErrors] = useState({});
-  const baseurl = `https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net`;
   
   const validate = () => {
     const newErrors = {};
@@ -48,7 +47,7 @@ const BookingForm = ({ onNewBooking }) => {
     }
 
     try {
-      const response = await fetch(`${baseurl}/api/bookings`, {
+      const response = await fetch(`https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
