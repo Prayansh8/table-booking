@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BookingForm from "./BookingForm";
 import { toast } from "react-hot-toast";
+import config from "@/config";
 
 const BookingPage = () => {
   const [bookings, setBookings] = useState([]);
@@ -10,7 +11,7 @@ const BookingPage = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/bookings");
+        const response = await fetch(`${config.baseurl}/api/bookings`);
         if (response) {
           const data = await response.json();
           setBookings(data);
@@ -66,7 +67,7 @@ const BookingPage = () => {
 
   const deleteBooking = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+      const response = await fetch(`${config.baseurl}/api/bookings/${id}`, {
         method: "DELETE",
       });
       if (response) {

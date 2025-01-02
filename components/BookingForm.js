@@ -1,3 +1,4 @@
+import config from "@/config";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -46,7 +47,7 @@ const BookingForm = ({ onNewBooking }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/bookings", {
+      const response = await fetch(`${config.baseurl}/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
