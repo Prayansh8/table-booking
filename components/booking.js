@@ -5,13 +5,10 @@ import { toast } from "react-hot-toast";
 
 const BookingPage = () => {
   const [bookings, setBookings] = useState([]);
-  const [bookingSuccess, setBookingSuccess] = useState(false);
-  const [summaryData, setSummaryData] = useState(null);
   
-  const baseurl = `https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net`;
   const fetchBookings = async () => {
     try {
-      const response = await fetch(`${baseurl}/api/bookings`);
+      const response = await fetch(`https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net/api/bookings`);
       if (response) {
         const data = await response.json();
         setBookings(data.reverse());
@@ -25,8 +22,6 @@ const BookingPage = () => {
   }, []);
 
   const handleNewBooking = (newBooking) => {
-    setBookingSuccess(true);
-    setSummaryData(newBooking);
     setBookings([...bookings, newBooking]);
   };
 
@@ -68,7 +63,7 @@ const BookingPage = () => {
 
   const deleteBooking = async (id) => {
     try {
-      const response = await fetch(`${baseurl}/api/bookings/${id}`, {
+      const response = await fetch(`https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net/api/bookings/${id}`, {
         method: "DELETE",
       });
       if (response) {
