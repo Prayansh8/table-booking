@@ -82,16 +82,32 @@ const BookingPage = () => {
 
   return (
     <>
-      <div className="max-w-lg mx-auto mt-4">
-        <h1 className="text-3xl font-bold">Table Booking</h1>
+      <div className="max-w-lg mx-auto mt-4 text-center">
+        <h1
+          className="text-3xl pb-2 font-bold text-center"
+          style={{
+            boxShadow: "0 4px 8px -3px #a5b4fc, 0 4px 6px -4px rgb(0 69 76)",
+            color: "#a5b4fc"
+          }}
+        >
+          Table Booking
+
+        </h1>
         <BookingForm onNewBooking={handleNewBooking} />
       </div>
       <div style={{ marginBottom: "8vh" }} className=" mt-12">
         <div className="flex items-center justify-center">
-          <div className="p-6">
-            <h1 className="text-3xl font-bold mb-2">Table Booking</h1>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
+          <div className="p-6" style={{ width: "100vh" }}>
+            <h1
+              className="text-3xl pb-2 font-bold text-center"
+              style={{
+                boxShadow: "0 4px 8px -3px #a5b4fc, 0 4px 6px -4px rgb(0 69 76)",
+                color: "#a5b4fc"
+              }}
+            >
+              Bookings
+            </h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 my-3">
               {bookings.map((booking) => (
                 <div
                   key={booking._id}
@@ -118,8 +134,8 @@ const BookingPage = () => {
                     <strong>Contact Number:</strong> {booking.contact}
                   </p>
                   <p>
-                    <strong>Booking Date and Time:</strong>{" "}
-                    {new Date(booking.createdAt).toLocaleString()}
+                    <strong>Booking Date:</strong>
+                    {new Date(booking.createdAt).toLocaleDateString()}
                   </p>
                   <button
                     onClick={() => confirmDeleteBooking(booking._id)}
