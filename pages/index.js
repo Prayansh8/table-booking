@@ -12,13 +12,13 @@ const HomePage = () => (
             width: "100vh"
           }}
         >
-          <h2 className="text-xl sm:text-3xl md:text-3xl lg:text-4xl font-bold mb-0 
+          <h1 className="text-xl sm:text-3xl md:text-3xl lg:text-4xl font-bold mb-0 
                      animate-[gradient_6s_linear_infinite] 
                      bg-gradient-to-r from-gray-200 via-indigo-200 to-gray-50 
                      bg-[length:200%_auto] bg-clip-text 
                      text-transparent font-nacelle">
             Welcome to Our Restaurant
-          </h2>
+          </h1>
         </div>
       </div>
       <div>
