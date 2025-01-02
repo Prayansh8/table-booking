@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BookingForm from "./BookingForm";
 import { toast } from "react-hot-toast";
-import config from "@/config";
+
+const baseurl = `https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net/`;
 
 const BookingPage = () => {
   const [bookings, setBookings] = useState([]);
@@ -11,10 +12,10 @@ const BookingPage = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch(`${config.baseurl}/api/bookings`);
+        const response = await fetch(`${baseurl}/api/bookings`);
         if (response) {
           const data = await response.json();
-          setBookings(data);
+          setBookings(data.reverse());
         }
       } catch (error) {
         console.error("Error fetching bookings:", error);
