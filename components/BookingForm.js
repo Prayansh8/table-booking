@@ -2,6 +2,8 @@ import config from "@/config";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
+const baseurl = `https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net/`;
+
 const BookingForm = ({ onNewBooking }) => {
   const [formData, setFormData] = useState({
     date: "",
@@ -15,7 +17,7 @@ const BookingForm = ({ onNewBooking }) => {
 
   const validate = () => {
     const newErrors = {};
-    const phoneRegex = /^\d{10}$/; // Regular expression for 10 digit number
+    const phoneRegex = /^\d{10}$/;
 
     if (!formData.date) newErrors.date = "Date is required.";
     if (!formData.time) newErrors.time = "Time is required.";
@@ -47,7 +49,7 @@ const BookingForm = ({ onNewBooking }) => {
     }
 
     try {
-      const response = await fetch(`${config.baseurl}/api/bookings`, {
+      const response = await fetch(`${baseurl}/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
