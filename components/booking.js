@@ -97,7 +97,7 @@ const BookingPage = () => {
       </div>
       <div style={{ marginBottom: "8vh" }} className=" mt-12">
         <div className="flex items-center justify-center">
-          <div className="p-6">
+          <div className="p-6" style={{ width: "100vh" }}>
             <h1
               className="text-3xl pb-2 font-bold text-center"
               style={{
@@ -134,8 +134,8 @@ const BookingPage = () => {
                     <strong>Contact Number:</strong> {booking.contact}
                   </p>
                   <p>
-                    <strong>Booking Date and Time:</strong>{" "}
-                    {new Date(booking.createdAt).toLocaleString()}
+                    <strong>Booking Date:</strong>
+                    {new Date(booking.createdAt).toLocaleDateString()}
                   </p>
                   <button
                     onClick={() => confirmDeleteBooking(booking._id)}
