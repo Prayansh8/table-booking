@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
-const baseurl = `https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net/`;
 
 const BookingForm = ({ onNewBooking }) => {
   const [formData, setFormData] = useState({
@@ -11,9 +10,10 @@ const BookingForm = ({ onNewBooking }) => {
     name: "",
     contact: "",
   });
-
+  
   const [errors, setErrors] = useState({});
-
+  const baseurl = `https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net`;
+  
   const validate = () => {
     const newErrors = {};
     const phoneRegex = /^\d{10}$/;

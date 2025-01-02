@@ -2,25 +2,25 @@ import React, { useState, useEffect } from "react";
 import BookingForm from "./BookingForm";
 import { toast } from "react-hot-toast";
 
-const baseurl = `https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net/`;
 
 const BookingPage = () => {
   const [bookings, setBookings] = useState([]);
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [summaryData, setSummaryData] = useState(null);
-
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await fetch(`${baseurl}/api/bookings`);
-        if (response) {
-          const data = await response.json();
-          setBookings(data.reverse());
-        }
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
+  
+  const baseurl = `https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net`;
+  const fetchBookings = async () => {
+    try {
+      const response = await fetch(`${baseurl}/api/bookings`);
+      if (response) {
+        const data = await response.json();
+        setBookings(data.reverse());
       }
-    };
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
+    }
+  };
+  useEffect(() => {
     fetchBookings();
   }, []);
 
