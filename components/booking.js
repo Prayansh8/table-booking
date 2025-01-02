@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 
 const BookingPage = () => {
   const [bookings, setBookings] = useState([]);
-  
+
   const fetchBookings = async () => {
     try {
       const response = await fetch(`https://restaurant-booking-system-dsd6abhvf3f9f9gu.southeastasia-01.azurewebsites.net/api/bookings`);
@@ -91,60 +91,62 @@ const BookingPage = () => {
         </h1>
         <BookingForm onNewBooking={handleNewBooking} />
       </div>
-      <div style={{ marginBottom: "8vh" }} className=" mt-12">
-        <div className="flex items-center justify-center">
-          <div className="p-6" style={{ width: "100vh" }}>
-            <h1
-              className="text-3xl pb-2 font-bold text-center"
-              style={{
-                boxShadow: "0 4px 8px -3px #a5b4fc, 0 4px 6px -4px rgb(0 69 76)",
-                color: "#a5b4fc"
-              }}
-            >
-              Bookings
-            </h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 my-3">
-              {bookings.map((booking) => (
-                <div
-                  key={booking._id}
-                  className="border rounded-lg p-6 bg-transparent text-gray-300"
-                  style={{
-                    boxShadow:
-                      "0 4px 8px -3px #a5b4fc, 0 4px 6px -4px rgb(0 69 76)",
-                  }}
-                >
-                  <h2 className="text-xl font-semibold mb-2">
-                    <strong> Name:</strong>{" "}
-                    {capitalizeFirstLetter(booking.name)}
-                  </h2>
-                  <p>
-                    <strong>Date:</strong> {formatDate(booking.date)}
-                  </p>
-                  <p>
-                    <strong>Time:</strong> {booking.time}
-                  </p>
-                  <p>
-                    <strong>Guests:</strong> {booking.guests}
-                  </p>
-                  <p>
-                    <strong>Contact Number:</strong> {booking.contact}
-                  </p>
-                  <p>
-                    <strong>Booking Date:</strong>
-                    {new Date(booking.createdAt).toLocaleDateString()}
-                  </p>
-                  <button
-                    onClick={() => confirmDeleteBooking(booking._id)}
-                    className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+      {bookings.length > 0 && (
+        <div style={{ marginBottom: "8vh" }} className=" mt-12">
+          <div className="flex items-center justify-center">
+            <div className="p-6" style={{ width: "100vh" }}>
+              <h1
+                className="text-3xl pb-2 font-bold text-center"
+                style={{
+                  boxShadow: "0 4px 8px -3px #a5b4fc, 0 4px 6px -4px rgb(0 69 76)",
+                  color: "#a5b4fc"
+                }}
+              >
+                Bookings
+              </h1>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 my-3">
+                {bookings.map((booking) => (
+                  <div
+                    key={booking._id}
+                    className="border rounded-lg p-6 bg-transparent text-gray-300"
+                    style={{
+                      boxShadow:
+                        "0 4px 8px -3px #a5b4fc, 0 4px 6px -4px rgb(0 69 76)",
+                    }}
                   >
-                    Delete
-                  </button>
-                </div>
-              ))}
+                    <h2 className="text-xl font-semibold mb-2">
+                      <strong> Name:</strong>{" "}
+                      {capitalizeFirstLetter(booking.name)}
+                    </h2>
+                    <p>
+                      <strong>Date:</strong> {formatDate(booking.date)}
+                    </p>
+                    <p>
+                      <strong>Time:</strong> {booking.time}
+                    </p>
+                    <p>
+                      <strong>Guests:</strong> {booking.guests}
+                    </p>
+                    <p>
+                      <strong>Contact Number:</strong> {booking.contact}
+                    </p>
+                    <p>
+                      <strong>Booking Date:</strong>
+                      {new Date(booking.createdAt).toLocaleDateString()}
+                    </p>
+                    <button
+                      onClick={() => confirmDeleteBooking(booking._id)}
+                      className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
