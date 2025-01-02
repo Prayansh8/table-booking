@@ -1,4 +1,3 @@
-import config from "@/config";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 

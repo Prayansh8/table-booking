@@ -68,7 +68,7 @@ const BookingPage = () => {
 
   const deleteBooking = async (id) => {
     try {
-      const response = await fetch(`${config.baseurl}/api/bookings/${id}`, {
+      const response = await fetch(`${baseurl}/api/bookings/${id}`, {
         method: "DELETE",
       });
       if (response) {
