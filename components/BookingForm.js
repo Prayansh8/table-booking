@@ -1,3 +1,4 @@
+import config from "@/config";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -46,7 +47,7 @@ const BookingForm = ({ onNewBooking }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/bookings", {
+      const response = await fetch(`${config.baseurl}/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -57,7 +58,7 @@ const BookingForm = ({ onNewBooking }) => {
         onNewBooking(result.booking);
         setFormData({ date: "", time: "", guests: "", name: "", contact: "" });
         setErrors({});
-        window.location.reload()
+        window.location.reload();
       } else {
         toast.error(result.error || "An error occurred");
       }
@@ -68,7 +69,7 @@ const BookingForm = ({ onNewBooking }) => {
 
   return (
     <div
-      className="max-w-lg mx-auto mt-8 p-6 bg-[#070f25] rounded-lg border border-gray-500"
+      className="max-w-lg mx-auto mt-2 p-6 bg-[#070f25] rounded-lg border border-gray-500"
       style={{
         boxShadow: " 0 10px 15px -3px #a5b4fc, 0 4px 6px -4px  rgb(0 69 76)",
       }}
